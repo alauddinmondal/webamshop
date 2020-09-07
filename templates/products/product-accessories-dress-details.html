@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %} 
+
+
+<section class="midium-banner">
+<div class="container">
+<div class="row" style="padding:60px 0;">
+<!-- Single Banner  -->
+{% for prdsnglaccess in productaccessdetailsingle %}
+<div class="col-sm-6 col-md-8">
+{% if prdsnglaccess.featured %}
+<div class="single-banner">
+<img src='{{ MEDIA_URL }}{{ prdsnglaccess.image.url }}' alt="#">
+</div>
+{% else %}
+<div class="single-banner">
+<img class="default-img" src='{% static "images/noimg.jpg" %}' alt="Image not available">
+</div>
+{% endif %}
+
+{% if prdsnglkids.thumbnail %}
+<div class="singleThumb">
+<div class="row">
+<div class="col-md-3"><img src='{% static "images/370x300.jpg" %}' alt="..." class="img-thumbnail"></div>
+</div>
+</div>
+{% endif %}
+</div>
+{% endfor %}
+<!-- /End Single Banner  -->
+<!-- Single Banner  -->
+<div class="col-sm-6 col-md-4">
+<div class="content">
+<h3>{{ productaccessdetails.title }}</h3>
+<p>{{ productaccessdetails.description }}</p>
+<p>Price: {{ productaccessdetails.price }}</strong></p>
+<p>Shipping free with $ 25 + purchase</strong></p>
+
+<ul class="webamshopbtn">
+    <li><a href="#" class="webamshopnow">Shop Now</a></li>
+    <li><a href="#" class="webamaddtocart">Add to Cart</a></li>
+</ul>
+
+ 
+</div>
+</div>
+<!-- /End Single Banner  -->
+</div>
+</div>
+</section>
+
+
+{% endblock %}

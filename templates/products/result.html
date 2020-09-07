@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %} 
+
+
+<section class="midium-banner">
+<div class="container" style="padding:60px 0;">
+
+<!-- Single Banner  -->
+<div class="row">
+    <div class="col-md-12">
+        You have searched 
+        <h2> {{ query }}</h2>
+    </div>
+</div>
+
+<div class="row">
+
+{% for res in results %}
+<div class="col-xl-3 col-lg-4 col-md-4 col-12">
+    <div class="single-product">
+    <div class="product-img">
+    <a href="{{ res.get_absolute_url }}">
+    {% for productsearchmen in res.productmenimage_set.all %}
+    {% if productsearchmen.featured %}
+    <img class="default-img" src='{{ MEDIA_URL }}{{ productsearchmen.image.url }}' alt="{{ productsearchmen.menimgalt }}">
+    <img class="hover-img" src='{{ MEDIA_URL }}{{ productsearchmen.image.url }}' alt="{{ productsearchmen.menimgalt }}">
+    {% else %}
+    <img class="default-img" src='{% static "images/noimg.jpg" %}' alt="Image not available">
+    <img class="hover-img" src='{% static "images/noimg.jpg" %}' alt="Image not available">
+    {% endif %}
+    {% endfor %}
+
+
+    {% for productsearchwomen in res.productwomenimage_set.all %}
+    {% if productsearchwomen.featured %}
+    <img class="default-img" src='{{ MEDIA_URL }}{{ productsearchwomen.image.url }}' alt="{{ productsearchwomen.menimgalt }}">
+    <img class="hover-img" src='{{ MEDIA_URL }}{{ productsearchwomen.image.url }}' alt="{{ productsearchwomen.menimgalt }}">
+    {% else %}
+    <img class="default-img" src='{% static "images/noimg.jpg" %}' alt="Image not available">
+    <img class="hover-img" src='{% static "images/noimg.jpg" %}' alt="Image not available">
+    {% endif %}
+    {% endfor %}
+
+
+    {% for productsearchkids in res.productkidsimage_set.all %}
+    {% if productsearchkids.featured %}
+    <img class="default-img" src='{{ MEDIA_URL }}{{ productsearchkids.image.url }}' alt="{{ productsearchkids.menimgalt }}">
+    <img class="hover-img" src='{{ MEDIA_URL }}{{ productsearchkids.image.url }}' alt="{{ productsearchkids.menimgalt }}">
+    {% else %}
+    <img class="default-img" src='{% static "images/noimg.jpg" %}' alt="Image not available">
+    <img class="hover-img" src='{% static "images/noimg.jpg" %}' alt="Image not available">
+    {% endif %}
+    {% endfor %}
+
+    {% for productsearcaccess in res.productaccessoriesimage_set.all %}
+    {% if productsearcaccess.featured %}
+    <img class="default-img" src='{{ MEDIA_URL }}{{ productsearcaccess.image.url }}' alt="{{ productsearcaccess.menimgalt }}">
+    <img class="hover-img" src='{{ MEDIA_URL }}{{ productsearcaccess.image.url }}' alt="{{ productsearcaccess.menimgalt }}">
+    {% else %}
+    <img class="default-img" src='{% static "images/noimg.jpg" %}' alt="Image not available">
+    <img class="hover-img" src='{% static "images/noimg.jpg" %}' alt="Image not available">
+    {% endif %}
+    {% endfor %}
+
+
+    </a>
+    <div class="button-head">
+    <div class="product-action">
+    <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
+    <a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+    <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
+    </div>
+    <div class="product-action-2">
+    <a title="Add to cart" href="{% url 'update_cartmen' res.slug %}">Add to cart</a>
+    </div>
+    </div>
+    </div>
+    <div class="product-content">
+    <h3><a href="{{ res.get_absolute_url }}">{{ res.title }}</a></h3>
+    <div class="product-price">
+    <span>$ {{ res.price }}</span>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+
+
+{% endfor %}
+</div>
+
+<!-- /End Single Banner  -->
+
+</div>
+</section>
+
+
+{% endblock %}

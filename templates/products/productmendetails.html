@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %} 
+
+
+<section class="midium-banner">
+<div class="container">
+<div class="row" style="padding:60px 0;">
+<!-- Single Banner  -->
+{% for prdsngl in productdetailsingle %}
+<div class="col-sm-6 col-md-8">
+{% if prdsngl.featured %}
+<div class="single-banner">
+<img src='{{ MEDIA_URL }}{{ prdsngl.image.url }}' alt="#">
+</div>
+{% else %}
+<div class="single-banner">
+<img class="default-img" src='{% static "images/noimg.jpg" %}' alt="Image not available">
+</div>
+{% endif %}
+
+{% if prdsngl.thumbnail %}
+<div class="singleThumb">
+<div class="row">
+<div class="col-md-3"><img src='{% static "images/370x300.jpg" %}' alt="..." class="img-thumbnail"></div>
+</div>
+</div>
+{% endif %}
+</div>
+{% endfor %}
+<!-- /End Single Banner  -->
+<!-- Single Banner  -->
+<div class="col-sm-6 col-md-4">
+<div class="content">
+<h3>{{ productmendetails.title }}</h3>
+<p>{{ productmendetails.description }}</p>
+<p>Price: {{ productmendetails.price }}</strong></p>
+<p>Shipping free with $ 25 + purchase</strong></p>
+<br>
+<form action="{% url 'update_cartmen' productmendetails.slug %}" method="POST">
+{% csrf_token %}
+<h4>Choose Quantity</h4><br>
+
+<div class="input-group">
+<div class="button minus">
+<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="qty">
+<i class="ti-minus"></i>
+</button>
+</div>
+<input type="text" name="qty" class="input-number" data-min="1" data-max="100" value="1">
+<div class="button plus">
+<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="qty">
+<i class="ti-plus"></i>
+</button>
+</div>
+</div>
+<br>
+<h4>Choose Size</h4><br>
+{% if productmendetails.variation_set.all %}
+<div class="input-group">  
+{% if productmendetails.variation_set.sizes %}
+<select name="size" class="prodvar">
+{% for varitem in productmendetails.variation_set.sizes %}
+<option value="{{ varitem.title|lower }}">{{ varitem.title|capfirst }}</option>
+{% endfor %}
+</select>
+<br>
+</div>
+{% endif %}
+
+
+<hr>
+
+<h4>Choose Color</h4><br>
+{% if productmendetails.variation_set.colors %}
+<div class="input-group"> 
+<select name="color" class="prodvar">
+{% for varitem in productmendetails.variation_set.colors %}
+<option value="{{ varitem.title|lower }}">{{ varitem.title|capfirst }}</option>
+{% endfor %}
+</select>
+</div>
+{% endif %}
+
+
+{% endif %}
+
+
+
+<!-- <ul class="webamshopbtn">
+    <li><a href="#" class="webamshopnow">Shop Now</a></li>
+    <li><a href="#" class="webamaddtocart"></li>
+</ul> -->
+
+<ul class="webamshopbtn">
+    <li><a href="#" class="webamshopnow">Shop Now</a></li>
+    <li><input type="submit" value="Add to cart" class="webamaddtocartsubmit"></li>
+</ul>
+
+</form>
+<!--/ End Input Order----->
+ 
+</div>
+</div>
+<!-- /End Single Banner  -->
+</div>
+</div>
+</section>
+
+
+{% endblock %}

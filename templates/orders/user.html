@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %} 
+
+<div class="breadcrumbs">
+<div class="container">
+<div class="row">
+<div class="col-12">
+<div class="bread-inner">
+<ul class="bread-list">
+<li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
+<li class="active"><a href="blog-single.html">Cart</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+    <div class="col-12">
+    
+        {{ user.order_set.all }}
+   
+    </div>
+    </div>
+    </div>
+
+
+
+{% endblock %}
